@@ -7,12 +7,61 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
+        android:id="@+id/number"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="h, 10:4"
+        android:inputType="numberDecimal"
+        android:layout_margin="16dp"
+        android:text="0"
+        android:textSize="24dp"
+        android:textDirection="rtl"
+        android:gravity="center_vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="16dp"
+        android:background="@color/lynx"
+        app:layout_constraintTop_toBottomOf="@+id/number"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/numberText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:inputType="text"
+        android:textSize="24dp"
+        android:textDirection="rtl"
+        android:text="zero"
+        android:gravity="center_vertical"
+        app:layout_constraintDimensionRatio="h, 10:4"
+        app:layout_constraintTop_toBottomOf="@+id/separator"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <View
+        android:id="@+id/separator1"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_margin="10dp"
+        android:background="@color/lynx"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numberText"
+        android:layout_marginTop="16dp"/>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        layout="@layout/number_grid_layout"
+        app:layout_constraintDimensionRatio="w, 10:10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

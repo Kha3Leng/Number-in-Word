@@ -8,5 +8,19 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    // Primary Color
+    <color name="radiant">#F79F1F</color>
+    <color name="puffin">#EE5A24</color>
+    
+    // Secondary Color
+    <color name="energy">#C4E538</color>
+    <color name="android">#C4E538</color>
+    
+    // Dark Color
+    <color name="prestiage">#2f3542</color>
+    <color name="gris">#57606f</color>
+    <color name="bluenight">#121212</color>
+
+    // Light Color
     <color name="lynx">#dcdde1</color>
 </resources>
