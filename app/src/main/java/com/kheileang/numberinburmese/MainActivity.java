@@ -2,20 +2,15 @@ package com.kheileang.numberinburmese;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kheileang.numberinburmese.SimpleClass.NumberConverterEng;
+
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,8 +19,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     textView6, textView7, textView8, textView9;
     private ImageView imageView1, imageView2, imageView3, imageView4, imageView5;
     private TextView numberView, numberTextView;
-    private StringBuilder number = new StringBuilder(11);
-    private StringBuilder numberText = new StringBuilder(100);
+    private StringBuilder number = new StringBuilder();
+    private StringBuilder numberText = new StringBuilder();
+    private NumberConverterEng converter = new NumberConverterEng();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,9 +140,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void clearAllDigits() {
         // clear all characters
         number.setLength(0);
+        numberText.setLength(0);
 
         // update it on UI
         numberView.setText("0");
+        numberTextView.setText("zero");
         Log.i(TAG, "clearAllDigits: Clear string builder");
         System.gc();
     }
@@ -161,8 +159,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String formatted_str = addThousandSeparator();
             // update the string again
             numberView.setText(formatted_str);
+
+            // update Number Text View
+            // convert the number to text
+            String numberInText =  converter.convertToWord(Long.parseLong(number.toString()));
+            // set it on UI
+            numberTextView.setText(numberInText);
         }else if(number.length() == 1 && number.charAt(0) != '0'){
             numberView.setText("0");
+            numberTextView.setText("zero");
         }
     }
 
@@ -172,12 +177,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if ((number.length()>1 && num == 0) || num != 0){
             number.append(String.valueOf(num));
         }
+
         String formatted_str = addThousandSeparator();
         numberView.setText(formatted_str);
+
+        // convert the number to text
+        String numberInText =  converter.convertToWord(Long.parseLong(number.toString()));
+        // set it on UI
+        numberTextView.setText(numberInText);
     }
 
     private String addThousandSeparator(){
         DecimalFormat decim = new DecimalFormat("#,###");
-        return decim.format(Float.parseFloat(number.toString()));
+        return number.length()>3?decim.format(Float.parseFloat(number.toString())):number.toString();
     }
 }
