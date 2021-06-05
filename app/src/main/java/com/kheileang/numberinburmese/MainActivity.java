@@ -28,18 +28,20 @@ import static android.os.Build.VERSION.SDK;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private TextView textView0, textView1, textView2, textView3, textView4, textView5,
-    textView6, textView7, textView8, textView9;
-    private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6;
+    private ImageView imageView1;
     private TextView numberView, numberTextView;
     private StringBuilder number = new StringBuilder();
     private StringBuilder numberText = new StringBuilder();
     private ClipboardManager clipboardManager;
-    private NumberConverterMm converter = new NumberConverterMm();
+    private NumberConverterMm converterMm = new NumberConverterMm();
+    private NumberConverterEng converterEng = new NumberConverterEng();
     private String numberInText = "";
     private Vibrator vibrator;
     private final int VIBRATE_AMPLITUDE = 80;
     private final int VIBRATE_DURATION = 50;
+    private final String DEFAULT_TEXT_MM = "သုည";
+    private final String DEFAULT_TEXT_ENG = "zero";
+    private boolean burmese = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,40 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         numberTextView = findViewById(R.id.numberText);
         numberView = findViewById(R.id.number);
 
-        textView0 = findViewById(R.id.zero);
-        textView1 = findViewById(R.id.one);
-        textView2 = findViewById(R.id.two);
-
-        textView3 = findViewById(R.id.three);
-        textView4 = findViewById(R.id.four);
-        textView5 = findViewById(R.id.five);
-
-        textView6 = findViewById(R.id.six);
-        textView7 = findViewById(R.id.seven);
-        textView8 = findViewById(R.id.eight);
-        textView9 = findViewById(R.id.nine);
-
         imageView1 = findViewById(R.id.delete);
-        imageView2 = findViewById(R.id.clear);
-        imageView3 = findViewById(R.id.share);
-        imageView4 = findViewById(R.id.copy);
-        imageView5 = findViewById(R.id.setting);
-        imageView6 = findViewById(R.id.translate);
 
         // Make number text view scrollable
         numberTextView.setMovementMethod(new ScrollingMovementMethod());
-
-        textView0.setOnClickListener(this);
-        textView1.setOnClickListener(this);
-        textView2.setOnClickListener(this);
-        textView3.setOnClickListener(this);
-        textView4.setOnClickListener(this);
-        textView5.setOnClickListener(this);
-        textView6.setOnClickListener(this);
-        textView7.setOnClickListener(this);
-        textView8.setOnClickListener(this);
-        textView9.setOnClickListener(this);
-        imageView1.setOnClickListener(this);
         imageView1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -93,10 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             }
         });
-        imageView2.setOnClickListener(this);
-        imageView3.setOnClickListener(this);
-        imageView4.setOnClickListener(this);
-        imageView5.setOnClickListener(this);
     }
 
     @Override
@@ -163,8 +131,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG, "onClick: SETTING");
                 goToSetting();
                 break;
+            case R.id.translate:
+                Log.i(TAG, "onClick: TRANSLATE");
+                translateNumber();
+                break;
         }
 
+    }
+
+    private void translateNumber() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(VIBRATE_DURATION, VIBRATE_AMPLITUDE));
+        }
+        burmese = !burmese;
+
+        // update Number Text View
+        // convert the number to
+        if (number.length() >= 1 ) {
+            if (burmese) {
+                numberInText = converterMm.convertToWord(Long.parseLong(number.toString()));
+            } else {
+                numberInText = converterEng.convertToWord(Long.parseLong(number.toString()));
+            }
+
+            // set it on UI
+            numberTextView.setText(numberInText);
+        }else if(number.length() == 0){
+            number.setLength(0);
+            numberView.setText("0");
+            numberTextView.setText(burmese?DEFAULT_TEXT_MM:DEFAULT_TEXT_ENG);
+        }
     }
 
     private void goToSetting() {
@@ -207,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // update it on UI
         numberView.setText("0");
-        numberTextView.setText("zero");
+        numberTextView.setText(burmese?DEFAULT_TEXT_MM:DEFAULT_TEXT_ENG);
         Log.i(TAG, "clearAllDigits: Clear string builder");
         System.gc();
     }
@@ -227,14 +223,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             numberView.setText(formatted_str);
 
             // update Number Text View
-            // convert the number to text
-            numberInText =  converter.convertToWord(Long.parseLong(number.toString()));
+            // convert the number to
+            if (burmese){
+                numberInText =  converterMm.convertToWord(Long.parseLong(number.toString()));
+            }else{
+                numberInText = converterEng.convertToWord(Long.parseLong(number.toString()));
+            }
+
             // set it on UI
             numberTextView.setText(numberInText);
         }else if(number.length() == 1 && number.charAt(0) != '0'){
             number.setLength(0);
             numberView.setText("0");
-            numberTextView.setText("zero");
+            numberTextView.setText(burmese?DEFAULT_TEXT_MM:DEFAULT_TEXT_ENG);
         }
     }
 
@@ -242,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void buildNumber(int num){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(50, 10));
+            vibrator.vibrate(VibrationEffect.createOneShot(30, 10));
         }
         if (number.length()>12){
             // reach limit
@@ -267,7 +268,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         numberView.setText(formatted_str);
 
         // convert the number to text
-        numberInText = number.toString().equals("") ? "zero":converter.convertToWord(Long.parseLong(number.toString()));
+        if (burmese) {
+            numberInText = number.toString().equals("") ? DEFAULT_TEXT_MM : converterMm.convertToWord(Long.parseLong(number.toString()));
+        }else{
+            numberInText = number.toString().equals("") ? DEFAULT_TEXT_ENG : converterEng.convertToWord(Long.parseLong(number.toString()));
+        }
         // set it on UI
         numberTextView.setText(numberInText);
 

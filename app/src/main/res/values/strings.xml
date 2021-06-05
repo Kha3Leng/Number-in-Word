@@ -8,4 +8,9 @@
         <hr/>
         Note : You can share the number in words text to social media. :)
     </string>
+    <string name="aboutus">\nThis App help you convert the number to text, which can then be used in inputting on bank cheques.
+        \n\n\n
+        Developed By Thura
+        \n(©copyright 2021 Thura)
+    </string>
 </resources>

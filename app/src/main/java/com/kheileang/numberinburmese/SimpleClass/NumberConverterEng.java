@@ -41,7 +41,8 @@ public class NumberConverterEng {
             "",
             " thousand",
             " million",
-            " billion"
+            " billion",
+            " trillion"
     };
 
     public static String convertToWord(long number) {
@@ -73,7 +74,7 @@ public class NumberConverterEng {
         }else{
             word = tens[(int) (num/10)] + units[(int) (num%10)];
         }
-        word = (number/100 > 0)? units[(int) (number/100)] + " hundred and" + word : word;
+        word = (number/100 > 0)? units[(int) (number/100)] + " hundred" + (word.isEmpty()? "": " and") + word : word;
         return word;
     }
 }

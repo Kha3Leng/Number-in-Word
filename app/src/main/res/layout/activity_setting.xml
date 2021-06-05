@@ -24,6 +24,21 @@
             android:padding="20dp">
 
             <TextView
+                android:id="@+id/aboutus_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textAppearance="@style/SettingTextStyle"
+                android:drawableStart="@drawable/ic_baseline_perm_identity_36"
+                android:drawableLeft="@drawable/ic_baseline_perm_identity_36"
+                android:drawablePadding="20dp"
+                android:drawableTint="@color/background"
+                android:gravity="center_vertical"
+                android:onClick="onClick"
+                android:text="About Us" />
+
+            <TextView
                 android:id="@+id/rate_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

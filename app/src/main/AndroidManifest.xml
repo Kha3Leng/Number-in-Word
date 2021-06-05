@@ -16,7 +16,8 @@
             android:theme="@style/Theme.NumberInBurmese"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".Activity.SplashScreen" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:label="Number In Words">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

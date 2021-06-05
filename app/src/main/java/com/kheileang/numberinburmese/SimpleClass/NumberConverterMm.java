@@ -94,7 +94,7 @@ public class NumberConverterMm {
         }else{
             word = tens[num/10] + units[num%10];
         }
-        word = (number/100 > 0)? units[(int) (number/100)] + "ရာ " + word : word;
+        word = (number/100 > 0)? units[(int) (number/100)] + "ရာ" + (word.isEmpty()? "": "နှင့်") + word : word;
         return word;
     }
 }

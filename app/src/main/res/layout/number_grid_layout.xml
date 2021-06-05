@@ -22,6 +22,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:text="7"
+            android:onClick="onClick"
             style="@style/Number.Item"/>
 
         <TextView
@@ -32,6 +33,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:text="8"
+            android:onClick="onClick"
             style="@style/Number.Item"/>
 
         <TextView
@@ -42,6 +44,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:text="9"
+            android:onClick="onClick"
             style="@style/Number.Item"/>
 
         <ImageView
@@ -52,6 +55,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
+            android:onClick="onClick"
             android:src="@drawable/ic__03_backspace_arrow"/>
 
         <TextView
@@ -62,6 +66,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:text="4"
+            android:onClick="onClick"
             style="@style/Number.Item"/>
 
         <TextView
@@ -72,6 +77,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:text="5"
+            android:onClick="onClick"
             style="@style/Number.Item"/>
 
         <TextView
@@ -82,6 +88,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:text="6"
+            android:onClick="onClick"
             style="@style/Number.Item"/>
 
         <ImageView
@@ -92,6 +99,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
+            android:onClick="onClick"
             android:src="@drawable/ic__02_clear"/>
 
         <TextView
@@ -102,6 +110,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:text="1"
+            android:onClick="onClick"
             style="@style/Number.Item"/>
 
         <TextView
@@ -112,6 +121,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:text="2"
+            android:onClick="onClick"
             style="@style/Number.Item"/>
 
         <TextView
@@ -122,6 +132,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:text="3"
+            android:onClick="onClick"
             style="@style/Number.Item"/>
 
         <ImageView
@@ -132,6 +143,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
+            android:onClick="onClick"
             android:src="@drawable/ic__05_share"/>
 
         <ImageView
@@ -142,6 +154,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
+            android:onClick="onClick"
             android:src="@drawable/ic__06_copy"/>
 
         <TextView
@@ -152,6 +165,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:text="0"
+            android:onClick="onClick"
             style="@style/Number.Item"/>
 
         <ImageView
@@ -162,6 +176,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
+            android:onClick="onClick"
             android:src="@drawable/ic__04_translate"
             style="@style/Number.Item"/>
 
@@ -173,6 +188,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
+            android:onClick="onClick"
             android:src="@drawable/ic__01_black_settings_button"/>
 
     </GridLayout>

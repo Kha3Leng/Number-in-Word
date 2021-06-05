@@ -51,7 +51,17 @@ public class SettingActivity extends AppCompatActivity {
             case R.id.feedback_setting:
                 reportDev("Feedback", "Your app can be improved..");
                 break;
+            case R.id.aboutus_setting:
+                aboutUs();
+                break;
         }
+    }
+
+    private void aboutUs() {
+        AlertDialog.Builder aboutus = new AlertDialog.Builder(this);
+        aboutus.setTitle("Abous This App");
+        aboutus.setMessage(R.string.aboutus);
+        aboutus.show();
     }
 
     private void reportDev(String subject, String body) {
