@@ -79,7 +79,7 @@ public class NumberConverterMm {
             firstIteration = false;
         } while (number > 0);
         num = Long.toString(origin).length() > 7 ? "သိန်း"+num: num;
-        return num;
+        return num + "ကျပ်တိတိ";
     }
 
     public static String convertThreeOrLessThanThreeDigitNum(long number) {

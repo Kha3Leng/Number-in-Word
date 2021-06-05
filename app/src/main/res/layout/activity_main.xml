@@ -7,11 +7,11 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/number"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="h, 10:4"
+        app:layout_constraintDimensionRatio="h, 10:2"
         android:inputType="numberDecimal"
         android:layout_margin="16dp"
         android:text="0"
@@ -26,6 +26,7 @@
         android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:layout_margin="10dp"
         android:layout_marginTop="16dp"
         android:background="@color/lynx"
         app:layout_constraintTop_toBottomOf="@+id/number"
@@ -39,8 +40,7 @@
         android:textSize="24dp"
         android:textDirection="rtl"
         android:text="zero"
-        android:maxLines="4"
-        android:lines="4"
+        android:scrollbars="vertical"
         android:gravity="center_vertical"
         app:layout_constraintDimensionRatio="h, 10:4"
         app:layout_constraintTop_toBottomOf="@+id/separator"

@@ -6,6 +6,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -59,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imageView4 = findViewById(R.id.copy);
         imageView5 = findViewById(R.id.setting);
         imageView6 = findViewById(R.id.translate);
+
+        // Make number text view scrollable
+        numberTextView.setMovementMethod(new ScrollingMovementMethod());
 
         textView0.setOnClickListener(this);
         textView1.setOnClickListener(this);
