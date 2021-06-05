@@ -15,6 +15,7 @@
         android:layout_margin="30dp"
         app:cardElevation="10dp"
         app:cardCornerRadius="10dp"
+        android:id="@+id/card"
         app:layout_constraintDimensionRatio="h,6:12">
 
         <LinearLayout
@@ -173,5 +174,15 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:layout_constraintLeft_toLeftOf="parent"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

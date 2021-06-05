@@ -1,5 +1,6 @@
 package com.kheileang.numberinburmese;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
@@ -15,6 +16,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.kheileang.numberinburmese.Activity.SettingActivity;
 import com.kheileang.numberinburmese.SimpleClass.NumberConverterEng;
 import com.kheileang.numberinburmese.SimpleClass.NumberConverterMm;
@@ -42,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final String DEFAULT_TEXT_MM = "သုည";
     private final String DEFAULT_TEXT_ENG = "zero";
     private boolean burmese = true;
+    private AdView adView;
+    private InterstitialAd minternstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         setContentView(R.layout.activity_main);
+
+        // initialize ads
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        // Banner Ads
+        adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        // Interstitial Ad
+        InterstitialAd.load(this,
+                "ca-app-pub-3940256099942544/1033173712",
+                new AdRequest.Builder().build(),
+                new InterstitialAdLoadCallback(){
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        super.onAdLoaded(interstitialAd);
+                        minternstitialAd = interstitialAd;
+                        minternstitialAd.show(getParent());
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        super.onAdFailedToLoad(loadAdError);
+                    }
+                });
 
         numberTextView = findViewById(R.id.numberText);
         numberView = findViewById(R.id.number);

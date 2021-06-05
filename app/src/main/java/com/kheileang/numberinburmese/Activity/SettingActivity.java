@@ -1,26 +1,60 @@
 package com.kheileang.numberinburmese.Activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.OnPaidEventListener;
+import com.google.android.gms.ads.ResponseInfo;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.kheileang.numberinburmese.R;
 
 import es.dmoral.toasty.Toasty;
 
 public class SettingActivity extends AppCompatActivity {
 
-    private TextView mRate, mShare, mApps, mPolicy, mHowTo, mDemo, mNotWorking, mFeedback;
+    private AdView adView;
+    private InterstitialAd minterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+
+        // Banner ad
+        adView = findViewById(R.id.adView1);
+        adView.loadAd(new AdRequest.Builder().build());
+
+        // Interstitial Ad
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712",
+                new AdRequest.Builder().build(),
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        super.onAdLoaded(interstitialAd);
+                        minterstitialAd = interstitialAd;
+                        minterstitialAd.show(getParent());
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        super.onAdFailedToLoad(loadAdError);
+                    }
+                });
     }
 
     public void onClick(View view) {
