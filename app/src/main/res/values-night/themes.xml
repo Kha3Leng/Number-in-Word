@@ -3,7 +3,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/puffin</item>
         <item name="colorPrimaryVariant">@color/radiant</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/lynx</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/energy</item>
         <item name="colorSecondaryVariant">@color/android</item>

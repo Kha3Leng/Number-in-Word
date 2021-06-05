@@ -52,7 +52,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_baseline_delete_forever_24"/>
+            android:src="@drawable/ic__03_backspace_arrow"/>
 
         <TextView
             android:id="@+id/four"
@@ -92,7 +92,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_baseline_autorenew_24"/>
+            android:src="@drawable/ic__02_clear"/>
 
         <TextView
             android:id="@+id/one"
@@ -132,7 +132,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_baseline_share_24"/>
+            android:src="@drawable/ic__05_share"/>
 
         <ImageView
             android:id="@+id/copy"
@@ -142,7 +142,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_baseline_content_copy_24"/>
+            android:src="@drawable/ic__06_copy"/>
 
         <TextView
             android:id="@+id/zero"
@@ -154,14 +154,15 @@
             android:text="0"
             style="@style/Number.Item"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/period"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_columnWeight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:text="."
+            android:scaleType="centerInside"
+            android:src="@drawable/ic__04_translate"
             style="@style/Number.Item"/>
 
         <ImageView
@@ -172,7 +173,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_baseline_settings_24"/>
+            android:src="@drawable/ic__01_black_settings_button"/>
 
     </GridLayout>
 

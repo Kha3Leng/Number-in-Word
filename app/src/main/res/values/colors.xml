@@ -11,6 +11,7 @@
     // Primary Color
     <color name="radiant">#F79F1F</color>
     <color name="puffin">#EE5A24</color>
+    <color name="orange">#f39c12</color>
     
     // Secondary Color
     <color name="energy">#C4E538</color>

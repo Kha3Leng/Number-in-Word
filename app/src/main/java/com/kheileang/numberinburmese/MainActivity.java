@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void buildNumber(int num){
         if (number.length()>12){
             // reach limit
-            Toasty.warning(this, "The number reached limit of 13 digits.", Toasty.LENGTH_SHORT).show();
+            Toasty.info(this, "The number reached limit of 13 digits.", Toasty.LENGTH_SHORT).show();
             return;
         }
         if ((number.length() >= 1 && num == 0) || num != 0) {
