@@ -2,6 +2,9 @@ package com.kheileang.numberinburmese;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +13,9 @@ import android.widget.TextView;
 
 import com.kheileang.numberinburmese.SimpleClass.NumberConverterEng;
 import com.kheileang.numberinburmese.SimpleClass.NumberConverterMm;
+import com.tapadoo.alerter.Alerter;
 
 import java.text.DecimalFormat;
-
 import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -20,15 +23,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = MainActivity.class.getSimpleName();
     private TextView textView0, textView1, textView2, textView3, textView4, textView5,
     textView6, textView7, textView8, textView9;
-    private ImageView imageView1, imageView2, imageView3, imageView4, imageView5;
+    private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6;
     private TextView numberView, numberTextView;
     private StringBuilder number = new StringBuilder();
     private StringBuilder numberText = new StringBuilder();
+    private ClipboardManager clipboardManager;
     private NumberConverterMm converter = new NumberConverterMm();
-
+    private String numberInText = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+
         setContentView(R.layout.activity_main);
 
         numberTextView = findViewById(R.id.numberText);
@@ -50,8 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imageView1 = findViewById(R.id.delete);
         imageView2 = findViewById(R.id.clear);
         imageView3 = findViewById(R.id.share);
-        imageView4 = findViewById(R.id.delete);
+        imageView4 = findViewById(R.id.copy);
         imageView5 = findViewById(R.id.setting);
+        imageView6 = findViewById(R.id.translate);
 
         textView0.setOnClickListener(this);
         textView1.setOnClickListener(this);
@@ -133,11 +140,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG, "onClick: COPY");
                 copyContent();
                 break;
+            case R.id.share:
+                Log.i(TAG, "onClick: SHARE");
+                shareContent();
+                break;
         }
 
     }
 
+    private void shareContent() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, numberInText);
+        intent.putExtra(Intent.EXTRA_SUBJECT, numberInText);
+        intent.putExtra(Intent.EXTRA_TITLE, numberInText);
+        intent.setType("text/plain");
+        startActivity(new Intent().createChooser(intent, "Share Via"));
+    }
+
     private void copyContent() {
+        ClipData clipData = ClipData.newPlainText("text/numberinburmese", numberInText);
+        clipboardManager.setPrimaryClip(clipData);
+        Alerter.create(this)
+                .setTitle("Text copied.")
+                .setDuration(1000)
+                .setBackgroundColorRes(R.color.orange) // or setBackgroundColorInt(Color.CYAN)
+                .show();
     }
 
     private void clearAllDigits() {
@@ -165,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // update Number Text View
             // convert the number to text
-            String numberInText =  converter.convertToWord(Long.parseLong(number.toString()));
+            numberInText =  converter.convertToWord(Long.parseLong(number.toString()));
             // set it on UI
             numberTextView.setText(numberInText);
         }else if(number.length() == 1 && number.charAt(0) != '0'){
@@ -180,7 +207,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void buildNumber(int num){
         if (number.length()>12){
             // reach limit
-            Toasty.info(this, "The number reached limit of 13 digits.", Toasty.LENGTH_SHORT).show();
+            Toasty.custom(this,
+                    "The number reached limit of 13 digits.",
+                    R.drawable.ic_baseline_info_24,
+                    R.color.radiant,
+                    Toasty.LENGTH_SHORT,
+                    true,
+                    true).show();
             return;
         }
         if ((number.length() >= 1 && num == 0) || num != 0) {
@@ -195,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         numberView.setText(formatted_str);
 
         // convert the number to text
-        String numberInText = number.toString().equals("") ? "zero":converter.convertToWord(Long.parseLong(number.toString()));
+        numberInText = number.toString().equals("") ? "zero":converter.convertToWord(Long.parseLong(number.toString()));
         // set it on UI
         numberTextView.setText(numberInText);
 

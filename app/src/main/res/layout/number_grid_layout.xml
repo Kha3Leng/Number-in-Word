@@ -155,7 +155,7 @@
             style="@style/Number.Item"/>
 
         <ImageView
-            android:id="@+id/period"
+            android:id="@+id/translate"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_columnWeight="1"
