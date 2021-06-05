@@ -15,65 +15,86 @@ public class NumberConverterMm {
     };
     public static final String[] doubles = {
             " တစ်ဆယ်",
+            " တစ်ဆယ့်တစ်",
             " တစ်ဆယ့်နှစ်",
             " တစ်ဆယ့်သုံး",
-            " thirteen",
-            " fourteen",
-            " fifteen",
-            " sixteen",
-            " seventeen",
-            " eighteen",
-            " nineteen"
+            " တစ်ဆယ့်လေး",
+            " တစ်ဆယ့်ငါး",
+            " တစ်ဆယ့်ခြောက်",
+            " တစ်ဆယ့်ခုနှစ်",
+            " တစ်ဆယ့်ရှစ်",
+            " တစ်ဆယ့်ကိုး"
     };
     public static final String[] tens = {
             "",
             "",
-            " twenty",
-            " thirty",
-            " forty",
-            " fifty",
-            " sixty",
-            " seventy",
-            " eighty",
-            " ninety"
+            " နှစ်ဆယ်",
+            " သုံးဆယ်",
+            " လေးဆယ်",
+            " ငါးဆယ်",
+            " ခြောက်ဆယ်",
+            " ခုနှစ်ဆယ်",
+            " ရှစ်ဆယ်",
+            " ကိုးဆယ်"
     };
     public static final String[] hundreds = {
             "",
-            " thousand",
-            " million",
-            " billion"
+            "ထောင်",
+            "သောင်း",
+            "သိန်း",
+            "ရာ",
+            "ထောင်",
+            "သောင်း",
+            "သိန်း",
+            "သန်း",
+            "ကုဋေ"
     };
 
     public static String convertToWord(long number) {
-        String word = "";
+        String num = "";
         int index = 0;
+        int n;
+        int digits = 0;
+        long origin = number;
+        boolean firstIteration = true;
         do {
-            // take 3 digits at a time
-            long num = number % 1000;
-            if (num != 0){
-                String str = convertThreeOrLessThanThreeDigitNum(num);
-                word = str + hundreds[index] + word;
+            if(firstIteration){
+                digits = 1000;
+            }else if (index == 1){
+                digits = 10;
+            }else if (index == 3){
+                digits = 100;
+            }else if (index == 4){
+                digits = 10;
+            }else if (index == 5){
+                digits = 10;
+            }
+            n = (int) (number % digits);
+            if (n != 0){
+                String s = convertThreeOrLessThanThreeDigitNum(n);
+                num = s + hundreds[index] + num;
             }
             index++;
-            // move left by 3 digits
-            number = number/1000;
+            number = number/digits;
+            firstIteration = false;
         } while (number > 0);
-        return word;
+        num = Long.toString(origin).length() > 7 ? "သိန်း"+num: num;
+        return num;
     }
 
     public static String convertThreeOrLessThanThreeDigitNum(long number) {
         String word = "";
-        long num = number % 100;
+        int num = (int) (number % 100);
         // Logic to take word from appropriate array
         if(num < 10){
-            word = word + units[(int) num];
+            word = word + units[num];
         }
         else if(num < 20){
-            word = word + doubles[(int) (num%10)] + " and";
+            word = word + doubles[num%10];
         }else{
-            word = tens[(int) (num/10)] + units[(int) (num%10)];
+            word = tens[num/10] + units[num%10];
         }
-        word = (number/100 > 0)? units[(int) (number/100)] + " hundred" + word : word;
+        word = (number/100 > 0)? units[(int) (number/100)] + "ရာ " + word : word;
         return word;
     }
 }

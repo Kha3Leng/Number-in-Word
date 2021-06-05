@@ -9,8 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kheileang.numberinburmese.SimpleClass.NumberConverterEng;
+import com.kheileang.numberinburmese.SimpleClass.NumberConverterMm;
 
 import java.text.DecimalFormat;
+
+import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView numberView, numberTextView;
     private StringBuilder number = new StringBuilder();
     private StringBuilder numberText = new StringBuilder();
-    private NumberConverterEng converter = new NumberConverterEng();
+    private NumberConverterMm converter = new NumberConverterMm();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // set it on UI
             numberTextView.setText(numberInText);
         }else if(number.length() == 1 && number.charAt(0) != '0'){
+            number.setLength(0);
             numberView.setText("0");
             numberTextView.setText("zero");
         }
@@ -174,21 +178,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void buildNumber(int num){
-        if ((number.length()>1 && num == 0) || num != 0){
+        if (number.length()>12){
+            // reach limit
+            Toasty.warning(this, "The number reached limit of 13 digits.", Toasty.LENGTH_SHORT).show();
+            return;
+        }
+        if ((number.length() >= 1 && num == 0) || num != 0) {
             number.append(String.valueOf(num));
         }
 
-        String formatted_str = addThousandSeparator();
+        if ((number.length() == 0 || number.length() == 1 ) && num == 0) {
+            numberView.setText("0");
+        }
+
+        String formatted_str = addThousandSeparator().length() == 0 ? "0" : addThousandSeparator();
         numberView.setText(formatted_str);
 
         // convert the number to text
-        String numberInText =  converter.convertToWord(Long.parseLong(number.toString()));
+        String numberInText = number.toString().equals("") ? "zero":converter.convertToWord(Long.parseLong(number.toString()));
         // set it on UI
         numberTextView.setText(numberInText);
+
     }
 
     private String addThousandSeparator(){
         DecimalFormat decim = new DecimalFormat("#,###");
-        return number.length()>3?decim.format(Float.parseFloat(number.toString())):number.toString();
+        return number.length()>3?decim.format(Long.parseLong(number.toString())):number.toString();
     }
 }
