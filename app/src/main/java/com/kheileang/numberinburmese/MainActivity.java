@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +23,8 @@ import com.tapadoo.alerter.Alerter;
 import java.text.DecimalFormat;
 import es.dmoral.toasty.Toasty;
 
+import static android.os.Build.VERSION.SDK;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -32,10 +37,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ClipboardManager clipboardManager;
     private NumberConverterMm converter = new NumberConverterMm();
     private String numberInText = "";
+    private Vibrator vibrator;
+    private final int VIBRATE_AMPLITUDE = 80;
+    private final int VIBRATE_DURATION = 50;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         setContentView(R.layout.activity_main);
 
@@ -163,6 +173,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void shareContent() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(VIBRATE_DURATION, VIBRATE_AMPLITUDE));
+        }
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, numberInText);
         intent.putExtra(Intent.EXTRA_SUBJECT, numberInText);
@@ -172,6 +185,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void copyContent() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(VIBRATE_DURATION, VIBRATE_AMPLITUDE));
+        }
         ClipData clipData = ClipData.newPlainText("text/numberinburmese", numberInText);
         clipboardManager.setPrimaryClip(clipData);
         Alerter.create(this)
@@ -182,6 +198,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void clearAllDigits() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(50, VIBRATE_AMPLITUDE));
+        }
         // clear all characters
         number.setLength(0);
         numberText.setLength(0);
@@ -194,6 +213,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void deleteOneDigit() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(VIBRATE_DURATION, VIBRATE_AMPLITUDE));
+        }
         Log.i(TAG, "deleteOneDigit: Delete One Character");
         // remove last character
         if (number.length() > 1 ) {
@@ -219,6 +241,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void buildNumber(int num){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(50, 10));
+        }
         if (number.length()>12){
             // reach limit
             Toasty.custom(this,

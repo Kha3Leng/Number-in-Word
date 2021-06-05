@@ -7,20 +7,20 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_marginTop="30dp"
         android:id="@+id/number"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="h, 10:2"
+        android:layout_height="50dp"
         android:inputType="numberDecimal"
-        android:layout_margin="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="50dp"
         android:text="0"
         android:textSize="24dp"
         android:textDirection="rtl"
         android:gravity="center_vertical"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <View
         android:id="@+id/separator"
@@ -42,11 +42,9 @@
         android:text="zero"
         android:scrollbars="vertical"
         android:gravity="center_vertical"
-        app:layout_constraintDimensionRatio="h, 10:4"
         app:layout_constraintTop_toBottomOf="@+id/separator"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_margin="16dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_margin="16dp"/>
 
     <View
         android:id="@+id/separator1"
