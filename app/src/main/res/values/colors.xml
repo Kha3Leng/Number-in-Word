@@ -24,5 +24,8 @@
 
     // Light Color
     <color name="lynx">#dcdde1</color>
+    <color name="colorGray">#dcdde1</color>
+    <color name="status">#7f8fa6</color>
+    <color name="background">#dfe4ea</color>
     <color name="iblue">#3479F6</color>
 </resources>

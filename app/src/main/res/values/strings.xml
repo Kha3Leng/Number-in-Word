@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">NumberInBurmese</string>
     <string name="slogan">Number in Burmese</string>
+    <string name="howto">\nStep ① Type in the number that you want it in words.\n
+        Step ② Number in words is generated on your key clicks.\n
+        Step ③ Copy the number in words by clicking on COPY Text button.\n
+        Step ④ Paste it where you want.\n
+        <hr/>
+        Note : You can share the number in words text to social media. :)
+    </string>
 </resources>

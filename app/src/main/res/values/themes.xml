@@ -43,4 +43,11 @@
         <item name="android:gravity">center</item>
         <item name="android:textStyle">normal</item>
     </style>
+
+    <style name="SettingTextStyle" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColorPrimary">@color/status</item>
+        <item name="android:textColor">@color/status</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
 </resources>

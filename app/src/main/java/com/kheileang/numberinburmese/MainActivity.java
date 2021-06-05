@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kheileang.numberinburmese.Activity.SettingActivity;
 import com.kheileang.numberinburmese.SimpleClass.NumberConverterEng;
 import com.kheileang.numberinburmese.SimpleClass.NumberConverterMm;
 import com.tapadoo.alerter.Alerter;
@@ -148,8 +149,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i(TAG, "onClick: SHARE");
                 shareContent();
                 break;
+            case R.id.setting:
+                Log.i(TAG, "onClick: SETTING");
+                goToSetting();
+                break;
         }
 
+    }
+
+    private void goToSetting() {
+        startActivity(new Intent(this, SettingActivity.class));
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.fade_out);
     }
 
     private void shareContent() {
