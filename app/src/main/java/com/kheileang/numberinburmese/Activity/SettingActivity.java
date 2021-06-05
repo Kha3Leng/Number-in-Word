@@ -40,7 +40,7 @@ public class SettingActivity extends AppCompatActivity {
         adView.loadAd(new AdRequest.Builder().build());
 
         // Interstitial Ad
-        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712",
+        InterstitialAd.load(this, "ca-app-pub-1589742015897303/6953136916",
                 new AdRequest.Builder().build(),
                 new InterstitialAdLoadCallback() {
                     @Override

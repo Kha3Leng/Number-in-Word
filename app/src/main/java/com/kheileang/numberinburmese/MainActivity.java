@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Interstitial Ad
         InterstitialAd.load(this,
-                "ca-app-pub-3940256099942544/1033173712",
+                "ca-app-pub-1589742015897303/9695684474",
                 new AdRequest.Builder().build(),
                 new InterstitialAdLoadCallback(){
                     @Override

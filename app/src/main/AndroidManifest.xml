@@ -14,7 +14,7 @@
         android:theme="@style/Theme.NumberInBurmese.NoActionBar">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-1589742015897303~9192287442"/>
         <activity android:name=".Activity.SettingActivity"
             android:hardwareAccelerated="true"
             android:theme="@style/Theme.NumberInBurmese"
