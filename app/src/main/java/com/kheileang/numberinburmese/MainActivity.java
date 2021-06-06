@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -50,15 +53,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final int VIBRATE_DURATION = 50;
     private final String DEFAULT_TEXT_MM = "သုည";
     private final String DEFAULT_TEXT_ENG = "zero";
-    private boolean burmese = true;
+    private boolean burmese;
     private AdView adView;
     private InterstitialAd minternstitialAd;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        sharedPreferences = getSharedPreferences(TAG, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        // get language value from preference setting
+        burmese = sharedPreferences.getBoolean("burmese", true);
 
         setContentView(R.layout.activity_main);
 
@@ -99,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Make number text view scrollable
         numberTextView.setMovementMethod(new ScrollingMovementMethod());
+
+        // set text according to language value
+        numberTextView.setText(burmese? DEFAULT_TEXT_MM: DEFAULT_TEXT_ENG);
         imageView1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -184,7 +197,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrator.vibrate(VibrationEffect.createOneShot(VIBRATE_DURATION, VIBRATE_AMPLITUDE));
         }
-        burmese = !burmese;
+
+        // burmese = !burmese;
+        // save it as a preference
+       editor.putBoolean("burmese", !burmese);
+       editor.commit();
+
+       burmese = sharedPreferences.getBoolean("burmese", true);
 
         // update Number Text View
         // convert the number to

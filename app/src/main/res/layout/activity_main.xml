@@ -39,7 +39,6 @@
         android:inputType="textMultiLine"
         android:textSize="24dp"
         android:textDirection="rtl"
-        android:text="သုည"
         android:scrollbars="vertical"
         android:gravity="center_vertical"
         app:layout_constraintTop_toBottomOf="@+id/separator"
